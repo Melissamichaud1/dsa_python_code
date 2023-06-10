@@ -1,0 +1,150 @@
+class Node:
+    def __init__(self, value=None):
+        self.value = value
+        self.next = None
+        self.prev = None
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+    def __iter__(self):
+        node = self.head
+        while node:
+            yield node
+            node = node.next
+    # Creation
+    def createDLL(self, nodeValue):
+        node = Node(nodeValue)
+        node.prev = None
+        node.next = None
+        self.head = node
+        self.tail = node
+        return "The doubly linked list is created"
+
+    # Insertion
+    def insertNode(self, nodeValue, location):
+        if self.head is None:
+            print("The node cannot be inserted")
+        else:
+            newNode = Node(nodeValue)
+            if location == 0: # Beginning
+                newNode.prev = None
+                newNode.next = self.head
+                self.head.prev = newNode
+                self.head = newNode
+            elif location == 1: # End
+                newNode.next = None
+                newNode.prev = self.tail
+                self.tail.next = newNode
+                self.tail = newNode
+            else: # Middle
+                tempNode = self.head
+                index = 0
+                while index < location - 1: # traverse
+                    tempNode = tempNode.next
+                    index += 1
+                newNode.next = tempNode.next
+                newNode.prev = tempNode # reverse link
+                newNode.next.prev = newNode # reverse link
+                tempNode.next = newNode
+    # Traversal
+    def traverseDLL(self):
+        if self.head is None:
+            print("There are no elements to traverse")
+        else:
+            tempNode = self.head
+            while tempNode:
+                print(tempNode.value)
+                tempNode = tempNode.next
+    # Reverse Traversal
+    def reverseTraversalDLL(self):
+        if self.head is None:
+            print("There are no elements to traverse.")
+        else:
+            tempNode = self.tail
+            while tempNode:
+                print(tempNode.value)
+                tempNode = tempNode.prev
+    # Searching
+    def searchDLL(self, nodeValue):
+        if self.head is None:
+            return "There are no elements in the list"
+        else:
+            tempNode = self.head
+            while tempNode:
+                if tempNode.value == nodeValue:
+                    return tempNode.value
+                tempNode = tempNode.next
+            return "The node does not exist in this list"
+    # Delete node
+    def deleteNode(self, location):
+        if self.head is None:
+            print("There are no elements")
+        else:
+            if location == 0: # delete from beginning
+                if self.head == self.tail: # only one node in list
+                    self.head = None
+                    self.tail = None # deletes the link
+                else: # more than one node in list
+                    self.head = self.head.next
+                    self.head.prev = None
+            elif location == 1: # delete last node
+                if self.head == self.tail: # only one node in list
+                    self.head = None
+                    self.tail = None # deletes the link
+                else: # more than one node in list
+                    self.tail = self.tail.prev
+                    self.tail.next = None
+            else:
+                currentNode = self.head
+                index = 0
+                while index < location - 1:
+                    currentNode = currentNode.next
+                    index += 1
+                currentNode.next = currentNode.next.next
+                currentNode.next.prev = currentNode # creates reverse link
+            print("The node has been successfully deleted")
+    # Delete entire list
+    def deleteDLL(self):
+        if self.head is None:
+            print("There are no nodes in DLL")
+        else:
+            tempNode = self.head
+            while tempNode:
+                tempNode.prev = None
+                tempNode = tempNode.next
+            self.head = None
+            self.tail = None
+            print("The DLL has been successfully deleted")
+
+
+# Create
+doublyLL = DoublyLinkedList()
+doublyLL.createDLL(5)
+
+# print([node.value for node in doublyLL])
+
+# Insertion
+doublyLL.insertNode(0,0)
+doublyLL.insertNode(2,1)
+doublyLL.insertNode(6,2)
+
+print([node.value for node in doublyLL])
+
+# Traversal
+# doublyLL.traverseDLL()
+
+# Reverse Traversal
+# doublyLL.reverseTraversalDLL()
+
+# Searching
+# print(doublyLL.searchDLL(6))
+
+# Deletion
+# doublyLL.deleteNode(0)
+# print([node.value for node in doublyLL])
+
+# Delete entire list
+doublyLL.deleteDLL()
+print([node.value for node in doublyLL])

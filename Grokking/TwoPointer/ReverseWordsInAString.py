@@ -50,6 +50,8 @@ def str_rev(_str, start_rev, end_rev):
        start_rev += 1                  # Move forwards towards the middle
        end_rev -= 1                    # Move backwards towards the middle
 
+print(reverse_words("Hello world"))
+
 """
 The code starts by importing the re module, which is used for regular expression operations.
 

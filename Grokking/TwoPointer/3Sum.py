@@ -30,6 +30,7 @@ def find_sum_of_three(nums, target):
     # No such triplet found whose sum equals the given target
     return False
 
+print(find_sum_of_three([3,5,2,6,7], 9))
 """
 In the loop, we keep one value of the array with us and then look for the other two integers against this selected value that complete the triplet whose sum equals the target value.
 
